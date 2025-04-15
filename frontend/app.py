@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 import sys
+from agent.agent import run_bot
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 st.set_page_config(page_title="Duke Chatbot", layout="wide")
