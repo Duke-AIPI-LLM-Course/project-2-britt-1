@@ -1,8 +1,15 @@
-import streamlit as st
 import os
 import sys
+
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
+if parent_dir not in sys.path:
+    sys.path.insert(0, parent_dir)
+
 from agent.agent import run_bot
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+import streamlit as st
+
+
 
 st.set_page_config(page_title="Duke Chatbot", layout="wide")
 st.title("Ask Me Anything About Duke!")
