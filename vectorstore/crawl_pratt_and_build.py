@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 from urllib.parse import urljoin, urlparse
 from langchain.schema import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.vectorstores import FAISS
-from langchain.embeddings import OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain.embeddings import HuggingFaceEmbeddings
 import os
 
 BASE_URL = "https://pratt.duke.edu"
@@ -46,7 +46,7 @@ def build_pratt_vector_db():
     docs = crawl_site(BASE_URL, MAX_PAGES)
     splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     chunks = splitter.split_documents(docs)
-    vectordb = FAISS.from_documents(chunks, OpenAIEmbeddings())
+    vectordb = FAISS.from_documents(chunks, HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2"))
     vectordb.save_local("vectorstore/pratt_db")
     print("Vector database saved!")
 
