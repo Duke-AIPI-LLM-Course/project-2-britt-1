@@ -4,6 +4,10 @@ from tools.rag_tool import ai_meng_rag_tool
 from tools.events_tool import get_duke_events
 from tools.pratt_tool import get_pratt_facts
 from agent.llm_chatbot import replicate_llm  
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 
 
 tools = [
