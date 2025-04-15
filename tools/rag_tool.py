@@ -6,9 +6,6 @@ from langchain.tools import tool
 
 @tool
 def ai_meng_rag_tool(query: str) -> str:
-    """
-    Uses a vector database to answer questions about Duke's AI MEng program.
-    """
     db = FAISS.load_local("vectorstore/db", OpenAIEmbeddings())
     retriever = db.as_retriever()
     llm = ChatOpenAI()
