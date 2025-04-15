@@ -1,0 +1,9 @@
+langchain
+faiss-cpu
+tiktoken
+openai
+streamlit
+beautifulsoup4
+requests
+replicate
+python-dotenv
