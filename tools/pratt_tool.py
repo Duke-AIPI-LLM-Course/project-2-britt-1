@@ -2,7 +2,7 @@ from langchain_community.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.chains import RetrievalQA
 from langchain.tools import tool
-from llm_chatbot import replicate_llm  
+from agent.llm_chatbot import replicate_llm  
 from bs4 import BeautifulSoup
 import requests
 from urllib.parse import urljoin
