@@ -8,3 +8,4 @@ requests
 replicate
 python-dotenv
 requests
+sentence-transformers
