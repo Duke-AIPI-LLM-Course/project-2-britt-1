@@ -2,7 +2,7 @@ import streamlit as st
 from agent.agent import run_bot
 
 st.set_page_config(page_title="Duke Chatbot", layout="wide")
-st.title("🤖 Ask Me Anything About Duke!")
+st.title("Ask Me Anything About Duke!")
 
 st.markdown("""
 <style>
