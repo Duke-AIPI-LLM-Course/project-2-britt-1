@@ -34,7 +34,7 @@ tools = [
 agent = initialize_agent(
     tools=tools,
     llm=replicate_llm,
-    agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
+    agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
     verbose=True,
 )
 
