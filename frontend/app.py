@@ -1,19 +1,17 @@
 import os
 import sys
+import re
+import streamlit as st
 
+# Ensure project root is in path
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.abspath(os.path.join(current_dir, '..'))
 if parent_dir not in sys.path:
     sys.path.insert(0, parent_dir)
 
-import re
 from agent.agent import run_bot
-import streamlit as st
-
 
 st.set_page_config(page_title="Duke Chatbot", layout="wide")
-st.markdown("<h1 style='text-align: center;'>Duke Chatbot</h1>", unsafe_allow_html=True)
-st.title("Ask Me Anything About Duke!")
 
 st.markdown("""
     <style>
@@ -24,6 +22,7 @@ st.markdown("""
     }
     h1, h2, h3, h4, h5, h6 {
         color: #000000 !important;
+        text-align: center;
     }
     .stTextInput > div > div > input {
         background-color: #ffffff !important;
@@ -43,17 +42,16 @@ st.markdown("""
     .stButton>button:hover {
         background-color: #2541a2 !important;
     }
-    .stAlert {
+    .stAlert, .stSuccess {
         background-color: #dff0d8 !important;
-        color: #000000 !important;
-    }
-    .stMarkdown, .stSuccess {
         color: #000000 !important;
         font-size: 1.1rem !important;
     }
     </style>
 """, unsafe_allow_html=True)
 
+st.markdown("<h1>Duke Chatbot</h1>", unsafe_allow_html=True)
+st.markdown("<h3>Ask Me Anything About Duke</h3>", unsafe_allow_html=True)
 
 user_input = st.text_input("Ask me a question:")
 
