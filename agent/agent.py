@@ -44,6 +44,8 @@ agent_executor = AgentExecutor.from_agent_and_tools(
     tools=tools,
     verbose=True,
     handle_parsing_errors=True,
+    max_iterations=3,
+    early_stopping_method="generate",
 )
 
 def run_bot(input_text):
