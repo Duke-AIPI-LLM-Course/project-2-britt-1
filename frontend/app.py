@@ -10,7 +10,6 @@ from agent.agent import run_bot
 import streamlit as st
 
 
-
 st.set_page_config(page_title="Duke Chatbot", layout="wide")
 st.title("Ask Me Anything About Duke!")
 
@@ -31,12 +30,21 @@ user_input = st.text_input("Ask me a question:")
 if user_input:
     with st.spinner("Thinking..."):
         full_response = run_bot(user_input)
-        if "Final Answer:" in full_response:
+
+        final_answer_match = re.search(
+            r'Action:\s*\{\s*"action"\s*:\s*"Final Answer"\s*,\s*"action_input"\s*:\s*"([^"]+)"\s*\}',
+            full_response,
+            re.DOTALL
+        )
+
+        if final_answer_match:
+            response = final_answer_match.group(1).strip()
+        elif "Final Answer:" in full_response:
             response = full_response.split("Final Answer:")[-1].strip()
         else:
             response = full_response.strip()
-        st.success(response)
 
+        st.success(response)
 
 if st.button("Reset"):
     st.session_state.clear()
