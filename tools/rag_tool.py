@@ -6,6 +6,7 @@ from agent.llm_chatbot import replicate_llm
 
 @tool
 def ai_meng_rag_tool(query: str) -> str:
+    """Get information about the Duke AI MEng program using the vector database."""
     db = FAISS.load_local(
         "vectorstore/db",
         HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2"),
