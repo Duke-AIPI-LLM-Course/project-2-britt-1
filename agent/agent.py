@@ -1,27 +1,15 @@
 import os
 import sys
 
-# Add project root to path
+# Add project root to the system path so modules are found
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from langchain.agents import initialize_agent, AgentType
-from langchain_core.runnables import Runnable
-from langchain.tools import Tool
-
+from langchain.agents import initialize_agent, AgentType, Tool, AgentExecutor
 from tools.rag_tool import ai_meng_rag_tool
 from tools.events_tool import get_duke_events
 from tools.pratt_tool import pratt_rag_tool
 from agent.llm_chatbot import replicate_llm
 
-# Wrap your Together.ai call inside a Runnable for LangChain compatibility
-class TogetherLLM(Runnable):
-    def invoke(self, input, config=None, **kwargs):
-        return replicate_llm(input)
-
-# Instantiate the LLM wrapper
-wrapped_llm = TogetherLLM()
-
-# Define tools
 tools = [
     Tool(
         name="AI MEng Info",
@@ -40,10 +28,9 @@ tools = [
     )
 ]
 
-# Initialize agent
 agent_executor = initialize_agent(
     tools=tools,
-    llm=wrapped_llm,
+    llm=replicate_llm,
     agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
     verbose=True,
     handle_parsing_errors=True,
@@ -51,6 +38,5 @@ agent_executor = initialize_agent(
     early_stopping_method="generate"
 )
 
-# Final export function
 def run_bot(input_text: str) -> str:
     return agent_executor.run(input_text)
