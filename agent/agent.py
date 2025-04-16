@@ -8,6 +8,7 @@ from langchain.tools import Tool
 from tools.rag_tool import ai_meng_rag_tool
 from tools.events_tool import get_duke_events
 from tools.pratt_tool import pratt_rag_tool
+from langchain.agents import AgentExecutor
 from agent.llm_chatbot import replicate_llm  
 
 
@@ -31,11 +32,19 @@ tools = [
 
 
 agent = initialize_agent(
-    tools,
-    replicate_llm,
+    tools=tools,
+    llm=replicate_llm,
     agent=AgentType.ZERO_SHOT_REACT_DESCRIPTION,
-    verbose=True
+    verbose=True,
+)
+
+# Wrap it to handle weird output parsing
+agent_executor = AgentExecutor.from_agent_and_tools(
+    agent=agent.agent,
+    tools=tools,
+    verbose=True,
+    handle_parsing_errors=True,
 )
 
 def run_bot(input_text):
-    return agent.run(input_text)
+    return agent_executor.run(input_text)
