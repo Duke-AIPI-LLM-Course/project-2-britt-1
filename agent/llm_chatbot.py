@@ -1,6 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
+from langchain_core.runnables import Runnable
 from langchain_core.messages import HumanMessage, SystemMessage, BaseMessage
 
 load_dotenv()
@@ -11,8 +12,7 @@ headers = {
     "Content-Type": "application/json"
 }
 
-def replicate_llm(prompt) -> str:
-    # If the prompt is a list of messages (LangChain agent style)
+def _call_llm(prompt) -> str:
     if isinstance(prompt, list) and all(isinstance(m, BaseMessage) for m in prompt):
         messages = []
         for msg in prompt:
@@ -25,7 +25,6 @@ def replicate_llm(prompt) -> str:
                 role = "assistant"
             messages.append({"role": role, "content": msg.content})
     else:
-        # Convert everything else to a simple user message
         messages = [{"role": "user", "content": str(prompt)}]
 
     payload = {
@@ -41,4 +40,11 @@ def replicate_llm(prompt) -> str:
     if response.status_code != 200:
         raise Exception(f"Together AI error {response.status_code}: {response.text}")
 
-    return response.json()["choices"][0]["message"]["content"]
+    return response.json()["choices"][0]["message"]["content"].strip()
+
+# Make it runnable by LangChain
+class TogetherLLM(Runnable):
+    def invoke(self, input, config=None, **kwargs):
+        return _call_llm(input)
+
+replicate_llm = TogetherLLM()
