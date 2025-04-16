@@ -15,22 +15,30 @@ st.set_page_config(page_title="Duke Chatbot", layout="wide")
 
 st.markdown("""
     <style>
+    /* Overall app styling */
     body, .stApp {
         background-color: #e8edf4;
         color: #000000;
         font-family: 'Georgia', serif;
     }
+
+    /* Heading styles */
     h1, h2, h3, h4, h5, h6 {
         color: #000000 !important;
     }
+
+    /* Text input box styling */
     .stTextInput > div > div > input {
         background-color: #ffffff !important;
         color: #000000 !important;
     }
+
     .stTextInput label {
         color: #000000 !important;
         font-weight: bold;
     }
+
+    /* Button styling */
     .stButton>button {
         background-color: #012169 !important;
         color: white !important;
@@ -38,19 +46,31 @@ st.markdown("""
         font-weight: bold;
         padding: 8px 16px;
     }
+
     .stButton>button:hover {
         background-color: #2541a2 !important;
     }
-    .stMarkdown p {
+
+    /* Alert/Success box styling */
+    .stAlert {
+        background-color: #c8e6c9 !important; /* slightly darker green for contrast */
         color: #000000 !important;
+        border-left: 6px solid #388e3c !important;
     }
-    .stSpinner {
-        background-color: #012169 !important;
+
+    .stAlert > div {
+        color: #000000 !important;
+        font-size: 1.1rem !important;
     }
-    .stSpinner::after {
-        border-color: #012169 transparent transparent !important;
+
+    /* Extra specificity to override Streamlit internals */
+    .stMarkdown, .stSuccess, .element-container:has(.stAlert) * {
+        color: #000000 !important;
+        font-size: 1.1rem !important;
     }
+    </style>
 """, unsafe_allow_html=True)
+
 
 
 st.markdown("<h1>Duke Chatbot</h1>", unsafe_allow_html=True)
