@@ -7,7 +7,7 @@ from langchain.agents import initialize_agent, AgentType
 from langchain.tools import Tool
 from tools.rag_tool import ai_meng_rag_tool
 from tools.events_tool import get_duke_events
-from tools.pratt_tool import get_pratt_facts
+from tools.pratt_tool import pratt_rag_tool
 from agent.llm_chatbot import replicate_llm  
 
 
@@ -24,7 +24,7 @@ tools = [
     ),
     Tool(
         name="Pratt Facts",
-        func=get_pratt_facts,
+        func=pratt_rag_tool,
         description="Use this tool to find quick facts about the Pratt School of Engineering"
     )
 ]
