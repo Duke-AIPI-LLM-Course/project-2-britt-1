@@ -12,47 +12,48 @@ import streamlit as st
 
 
 st.set_page_config(page_title="Duke Chatbot", layout="wide")
-st.image("https://brand.duke.edu/wp-content/uploads/2022/12/duke-logo-primary-rgb.png", width=200)
 st.markdown("<h1 style='text-align: center;'>Duke Chatbot</h1>", unsafe_allow_html=True)
 st.title("Ask Me Anything About Duke!")
 
 st.markdown("""
     <style>
-    body {
+    body, .stApp {
         background-color: #e8edf4;
         color: #000000;
         font-family: 'Georgia', serif;
     }
-    .stApp {
-        background-color: #e8edf4;
+    h1, h2, h3, h4, h5, h6 {
+        color: #000000 !important;
     }
-    .stTextInput input {
-        background-color: #ffffff;
-        color: #000000;
-        border-radius: 8px;
-        padding: 10px;
+    .stTextInput > div > div > input {
+        background-color: #ffffff !important;
+        color: #000000 !important;
     }
     .stTextInput label {
-        color: #000000;
+        color: #000000 !important;
         font-weight: bold;
     }
     .stButton>button {
-        background-color: #012169;
-        color: white;
+        background-color: #012169 !important;
+        color: white !important;
         border-radius: 6px;
-        padding: 8px 16px;
         font-weight: bold;
+        padding: 8px 16px;
     }
     .stButton>button:hover {
-        background-color: #2541a2;
-        color: white;
+        background-color: #2541a2 !important;
+    }
+    .stAlert {
+        background-color: #dff0d8 !important;
+        color: #000000 !important;
     }
     .stMarkdown, .stSuccess {
-        color: #000000;
-        font-size: 1.1rem;
+        color: #000000 !important;
+        font-size: 1.1rem !important;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 user_input = st.text_input("Ask me a question:")
 
