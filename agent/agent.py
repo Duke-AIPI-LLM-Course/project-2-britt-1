@@ -11,7 +11,7 @@ from tools.pratt_tool import pratt_rag_tool
 from agent.llm_chatbot import replicate_llm
 
 class GeminiLLM(Runnable):
-    def invoke(self, input, config=None):
+    def invoke(self, input, config=None, **kwargs):
         return replicate_llm(input)
 
 replicate_wrapped_llm = GeminiLLM()
