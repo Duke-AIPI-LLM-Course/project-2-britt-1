@@ -15,15 +15,41 @@ st.set_page_config(page_title="Duke Chatbot", layout="wide")
 st.title("Ask Me Anything About Duke!")
 
 st.markdown("""
-<style>
-    .main {
-        background-color: #e6edf5;
+    <style>
+    body {
+        background-color: #e8edf4;
+        color: #000000;
+        font-family: 'Georgia', serif;
+    }
+    .stApp {
+        background-color: #e8edf4;
+    }
+    .stTextInput input {
+        background-color: #ffffff;
+        color: #000000;
+        border-radius: 8px;
+        padding: 10px;
+    }
+    .stTextInput label {
+        color: #000000;
+        font-weight: bold;
     }
     .stButton>button {
         background-color: #012169;
         color: white;
+        border-radius: 6px;
+        padding: 8px 16px;
+        font-weight: bold;
     }
-</style>
+    .stButton>button:hover {
+        background-color: #2541a2;
+        color: white;
+    }
+    .stMarkdown, .stSuccess {
+        color: #000000;
+        font-size: 1.1rem;
+    }
+    </style>
 """, unsafe_allow_html=True)
 
 user_input = st.text_input("Ask me a question:")
