@@ -11,6 +11,7 @@ if parent_dir not in sys.path:
 
 from agent.agent import run_bot
 
+# Streamlit UI config
 st.set_page_config(page_title="Duke Chatbot", layout="wide")
 
 st.markdown("""
@@ -91,10 +92,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 st.markdown('<div class="duke-header">Duke Chatbot</div>', unsafe_allow_html=True)
-
-
 
 st.markdown("<h1>Duke Chatbot</h1>", unsafe_allow_html=True)
 st.markdown("<h3>Ask Me Anything About Duke</h3>", unsafe_allow_html=True)
@@ -109,7 +107,6 @@ if user_input:
         if match:
             response = match.group(1).strip()
         else:
-            # fallback to show first observation if parsing fails
             obs_match = re.search(r'Observation:\s*(.*?)(?:\n[A-Z]|$)', full_response, re.DOTALL)
             response = obs_match.group(1).strip() if obs_match else full_response.strip()
 

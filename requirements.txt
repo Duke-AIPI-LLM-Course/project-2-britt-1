@@ -9,4 +9,8 @@ replicate
 python-dotenv
 requests
 sentence-transformers
-google-generativeai
+langchain_core
+python-dotenv
+langchain
+huggingface
+huggingface-hub
