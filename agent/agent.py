@@ -2,43 +2,54 @@ import sys
 import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from langchain.agents import Tool
-from langchain.agents import initialize_agent, AgentType
-from langchain.tools import Tool
+from langchain.agents import initialize_agent, AgentType, Tool
 from tools.rag_tool import ai_meng_rag_tool
 from tools.events_tool import get_duke_events
 from tools.pratt_tool import pratt_rag_tool
-from langchain.agents import AgentExecutor
-from agent.llm_chatbot import replicate_llm  
-
+from agent.llm_chatbot import replicate_llm
 
 tools = [
     Tool(
         name="AI MEng Info",
         func=ai_meng_rag_tool,
-        description="Use this tool to get details about the Duke AI MEng program"
+        description="Get info about the Duke AI MEng program"
     ),
     Tool(
         name="Events",
         func=get_duke_events,
-        description="Use this tool to find upcoming Duke campus events"
+        description="Find upcoming campus events at Duke"
     ),
     Tool(
-        name="Pratt Facts",
+        name="Pratt Info",
         func=pratt_rag_tool,
-        description="Use this tool to find quick facts about the Pratt School of Engineering"
+        description="Get details about the Pratt School of Engineering"
     )
 ]
 
+from langchain.agents import AgentExecutor
+from langchain_core.prompts import PromptTemplate
+from langchain_core.language_models import FakeListLLM  # Gemini not natively supported
+
+# Wrap Gemini as a callable LLM for LangChain
+class GeminiLLM:
+    def __init__(self, call_func):
+        self.call_func = call_func
+
+    def __call__(self, prompt, **kwargs):
+        return {"output": self.call_func(prompt)}
+
+    def invoke(self, input, **kwargs):
+        return self.call_func(input)
+
+replicate_wrapped_llm = GeminiLLM(replicate_llm)
 
 agent = initialize_agent(
     tools=tools,
-    llm=replicate_llm,
+    llm=replicate_wrapped_llm,
     agent=AgentType.STRUCTURED_CHAT_ZERO_SHOT_REACT_DESCRIPTION,
-    verbose=True,
+    verbose=True
 )
 
-# Wrap it to handle weird output parsing
 agent_executor = AgentExecutor.from_agent_and_tools(
     agent=agent.agent,
     tools=tools,
