@@ -1,0 +1,16 @@
+runtime: python311
+
+entrypoint: streamlit run frontend/app.py
+
+env_variables:
+  TOGETHER_API_KEY: "3c9fff8cb60bf41a82bb63f5d547968e896881314a4962498c3fc07fae8dbfa0"  
+
+instance_class: F2  
+
+automatic_scaling:
+  min_instances: 1
+  max_instances: 2
+
+handlers:
+  - url: /.*
+    script: auto
