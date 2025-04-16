@@ -12,6 +12,8 @@ import streamlit as st
 
 
 st.set_page_config(page_title="Duke Chatbot", layout="wide")
+st.image("https://brand.duke.edu/wp-content/uploads/2022/12/duke-logo-primary-rgb.png", width=200)
+st.markdown("<h1 style='text-align: center;'>Duke Chatbot</h1>", unsafe_allow_html=True)
 st.title("Ask Me Anything About Duke!")
 
 st.markdown("""
