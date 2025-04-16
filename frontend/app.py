@@ -22,7 +22,6 @@ st.markdown("""
     }
     h1, h2, h3, h4, h5, h6 {
         color: #000000 !important;
-        text-align: center;
     }
     .stTextInput > div > div > input {
         background-color: #ffffff !important;
@@ -42,13 +41,15 @@ st.markdown("""
     .stButton>button:hover {
         background-color: #2541a2 !important;
     }
-    .stAlert, .stSuccess {
-        background-color: #dff0d8 !important;
-        color: #000000 !important;
-        font-size: 1.1rem !important;
+    .stAlert {
+        background-color: #c6f0c6 !important; /* lighter green */
+        color: #000000 !important;           /* black text */
+        font-weight: bold;
+        font-size: 1.05rem;
     }
     </style>
 """, unsafe_allow_html=True)
+
 
 st.markdown("<h1>Duke Chatbot</h1>", unsafe_allow_html=True)
 st.markdown("<h3>Ask Me Anything About Duke</h3>", unsafe_allow_html=True)
