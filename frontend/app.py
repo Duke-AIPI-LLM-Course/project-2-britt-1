@@ -30,8 +30,14 @@ user_input = st.text_input("Ask me a question:")
 
 if user_input:
     with st.spinner("Thinking..."):
-        response = run_bot(user_input)
+        full_response = run_bot(user_input)
+        if "Final Answer:" in full_response:
+            response = full_response.split("Final Answer:")[-1].strip()
+        else:
+            response = full_response.strip()
         st.success(response)
+
+
 if st.button("Reset"):
     st.session_state.clear()
     st.experimental_rerun()
