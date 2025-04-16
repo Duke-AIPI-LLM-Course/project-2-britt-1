@@ -41,13 +41,15 @@ st.markdown("""
     .stButton>button:hover {
         background-color: #2541a2 !important;
     }
-    .stAlert {
-        background-color: #c6f0c6 !important; /* lighter green */
-        color: #000000 !important;           /* black text */
-        font-weight: bold;
-        font-size: 1.05rem;
+    .stMarkdown p {
+        color: #000000 !important;
     }
-    </style>
+    .stSpinner {
+        background-color: #012169 !important;
+    }
+    .stSpinner::after {
+        border-color: #012169 transparent transparent !important;
+    }
 """, unsafe_allow_html=True)
 
 
@@ -60,18 +62,13 @@ if user_input:
     with st.spinner("Thinking..."):
         full_response = run_bot(user_input)
 
-        final_answer_match = re.search(
-            r'Action:\s*\{\s*"action"\s*:\s*"Final Answer"\s*,\s*"action_input"\s*:\s*"([^"]+)"\s*\}',
-            full_response,
-            re.DOTALL
-        )
-
-        if final_answer_match:
-            response = final_answer_match.group(1).strip()
-        elif "Final Answer:" in full_response:
-            response = full_response.split("Final Answer:")[-1].strip()
+        match = re.search(r'Final Answer.*?:\s*(.*)', full_response, re.DOTALL)
+        if match:
+            response = match.group(1).strip()
         else:
-            response = full_response.strip()
+            # fallback to show first observation if parsing fails
+            obs_match = re.search(r'Observation:\s*(.*?)(?:\n[A-Z]|$)', full_response, re.DOTALL)
+            response = obs_match.group(1).strip() if obs_match else full_response.strip()
 
         st.success(response)
 

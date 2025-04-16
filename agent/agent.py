@@ -35,7 +35,8 @@ agent_executor = initialize_agent(
     verbose=True,
     handle_parsing_errors=True,
     max_iterations=3,
-    early_stopping_method="generate"
+    early_stopping_method="generate",
+    return_intermediate_steps=False
 )
 
 def run_bot(input_text: str) -> str:
