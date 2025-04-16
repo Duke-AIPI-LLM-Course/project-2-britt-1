@@ -9,3 +9,4 @@ replicate
 python-dotenv
 requests
 sentence-transformers
+google-generativeai
